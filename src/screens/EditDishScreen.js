@@ -1,25 +1,35 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, View} from "react-native";
 import theme from "../../theme";
 import {useNavigation} from "@react-navigation/native";
 import {useSelector} from "react-redux";
-import DishCreateForm from "../components/forms/DishCreateForm";
+import DishEditForm from "../components/forms/DishEditForm";
+import {useGetDishByIdQuery} from "../redux/services/DishesService";
 
-const AddNewDishScreen = () => {
-
+const EditDishScreen = (props) => {
+    const id = props?.route?.params?.dishId
     const navigation = useNavigation()
     const lang = useSelector(state => state.langReducer.lang)
+    const [dish, setDish] = useState(null)
+    const {data, isLoading, refetch} = useGetDishByIdQuery(id)
+
+    useEffect(() => {
+        if (!isLoading) {
+            setDish(data)
+        }
+        refetch()
+    }, [isLoading, data]);
 
     const addImageHandler = async (values) => {
-
-        navigation.navigate('AddImageDishScreen', {
-            values
+        navigation.navigate('EditImageDishScreen', {
+            values,
+            image: dish?.image
         })
     };
 
     return (
         <View style={styles.container}>
-            <DishCreateForm onSubmit={addImageHandler}/>
+            <DishEditForm key={dish ? dish?.id : 'null'} onSubmit={addImageHandler} dish={dish}/>
         </View>
     );
 };
@@ -45,4 +55,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default AddNewDishScreen;
+export default EditDishScreen;

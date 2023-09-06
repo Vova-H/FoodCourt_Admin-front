@@ -1,35 +1,66 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {ScrollView, StyleSheet, Text, TextInput, View} from 'react-native';
-import {Formik} from 'formik';
+import {Formik, useFormik} from 'formik';
 import dishValidationSchema from "../../validations/dish-validation.Schema";
 import theme from "../../../theme";
 import CustomInput from "../UI/CustomInput";
 import CustomButton from "../UI/CustomButton";
 
+const DishEditForm = ({onSubmit, dish}) => {
 
-const DishForm = ({onSubmit}) => {
+    const [localName, setLocalName] = useState(dish?.name || '');
+    const [localDescription, setLocalDescription] = useState(dish?.description || '');
+    const [localWeight, setLocalWeight] = useState(dish?.weight.toString() || '');
+    const [localCalories, setLocalCalories] = useState(dish?.calories.toString() || '');
+    const [localPrice, setLocalPrice] = useState(dish?.price.toString() || '');
+
+    const formik = useFormik({
+        initialValues: {
+            id: dish?.id || '',
+            name: dish?.name || '',
+            description: dish?.description || '',
+            weight: dish?.weight.toString() || '',
+            calories: dish?.calories.toString() || '',
+            price: dish?.price.toString() || '',
+        },
+        validationSchema: dishValidationSchema,
+        onSubmit: (values) => {
+            onSubmit({
+                ...values,
+                name: localName,
+                description: localDescription,
+                weight: localWeight,
+                calories: localCalories,
+                price: localPrice,
+            })
+            ;
+        },
+    });
 
     return (
         <Formik
-            initialValues={{
-                name: '',
-                description: '',
-                weight: '',
-                calories: '',
-                price: '',
-            }}
-            validationSchema={dishValidationSchema}
+            initialValues={formik.initialValues}
+            validationSchema={formik.validationSchema}
             onSubmit={(values) => {
-                onSubmit({...values});
+                onSubmit({
+                    ...values,
+                    name: localName,
+                    description: localDescription,
+                    weight: localWeight,
+                    calories: localCalories,
+                    price: localPrice
+                });
             }}
         >
-            {({handleChange, handleSubmit, values, errors}) => (
+            {({handleSubmit, errors}) => (
                 <ScrollView style={styles.container}>
                     <View>
                         <CustomInput
                             inputLabel={"Name of dish"}
-                            onChangeText={handleChange('name')}
-                            value={values.name}
+                            onChangeText={(value) => {
+                                setLocalName(value);
+                            }}
+                            value={localName}
                             placeholder="Name"
                         />
                         {errors.name && <Text style={styles.validationErrorText}>{errors.name}</Text>}
@@ -37,8 +68,10 @@ const DishForm = ({onSubmit}) => {
                         <Text style={styles.label}>Description of dish</Text>
                         <TextInput
                             style={styles.textInput}
-                            onChangeText={handleChange('description')}
-                            value={values.description}
+                            onChangeText={(value) => {
+                                setLocalDescription(value);
+                            }}
+                            value={localDescription}
                             placeholder="Description"
                             multiline={true}
                             numberOfLines={6}
@@ -47,8 +80,10 @@ const DishForm = ({onSubmit}) => {
                         {errors.description && <Text style={styles.validationErrorText}>{errors.description}</Text>}
                         <CustomInput
                             inputLabel={"Weight ( g ) "}
-                            onChangeText={handleChange('weight')}
-                            value={values.weight}
+                            onChangeText={(value) => {
+                                setLocalWeight(value);
+                            }}
+                            value={localWeight}
                             placeholder="Weight"
                             keyboardType="numeric"
                         />
@@ -56,8 +91,10 @@ const DishForm = ({onSubmit}) => {
 
                         <CustomInput
                             inputLabel={"Calories ( KCal ) "}
-                            onChangeText={handleChange('calories')}
-                            value={values.calories}
+                            onChangeText={(value) => {
+                                setLocalCalories(value);
+                            }}
+                            value={localCalories}
                             placeholder="Calories"
                             keyboardType="numeric"
                         />
@@ -65,8 +102,10 @@ const DishForm = ({onSubmit}) => {
 
                         <CustomInput
                             inputLabel={"Price ( in $ )"}
-                            onChangeText={handleChange('price')}
-                            value={values.price}
+                            onChangeText={(value) => {
+                                setLocalPrice(value);
+                            }}
+                            value={localPrice}
                             placeholder="Price"
                             keyboardType="numeric"
                         />
@@ -115,4 +154,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default DishForm;
+export default DishEditForm;

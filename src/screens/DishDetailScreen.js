@@ -37,6 +37,12 @@ const DishDetailScreen = (props) => {
         setIsActive(true)
     }
 
+    const goToEditScreenHandler = (dishId) => {
+        navigation.navigate('EditDishScreen', {
+            dishId
+        })
+    };
+
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -58,7 +64,7 @@ const DishDetailScreen = (props) => {
                                         <Ionicons name={"eye-off-outline"} size={40} color="#000"/>
                                     </TouchableOpacity>
                             }
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress={() => goToEditScreenHandler(dish.id)}>
                                 <Ionicons name={"pencil"} size={40} color="#000"/>
                             </TouchableOpacity>
                         </View>

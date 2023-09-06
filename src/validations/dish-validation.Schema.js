@@ -8,4 +8,5 @@ const dishValidationSchema = yup.object().shape({
     price: yup.number().required('Price is required'),
 })
 
+
 export default dishValidationSchema

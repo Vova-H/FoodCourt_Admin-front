@@ -27,6 +27,18 @@ export const dishesAPI = createApi({
                 }
             }),
         }),
+
+        getDishById: build.query({
+            query: (id) => ({
+                url: `/${id}`,
+                method: "GET",
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                }
+            }),
+        }),
+
+
         getDishesByKeywords: build.mutation({
             query: (queries) =>
                 ({
@@ -72,6 +84,18 @@ export const dishesAPI = createApi({
                 },
             }),
         }),
+
+        editDish: build.mutation({
+            query: (data) =>
+                ({
+                url: `/edit/${data.id}`,
+                method: 'POST',
+                body: data.formData,
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            }),
+        }),
     })
 });
 
@@ -80,5 +104,7 @@ export const {
     useGetDishesByKeywordsMutation,
     useAddDishMutation,
     useHideDishMutation,
-    useShowDishMutation
+    useShowDishMutation,
+    useGetDishByIdQuery,
+    useEditDishMutation
 } = dishesAPI;
