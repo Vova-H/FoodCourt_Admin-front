@@ -1,21 +1,29 @@
 import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {useNavigation} from "@react-navigation/native";
 
 const UserItem = ({user}) => {
+    const navigation = useNavigation()
+
+    const navigationHandler = () => {
+        navigation.navigate("UserDetailsScreen", {
+            user: user
+        })
+    }
 
     return (
-            <TouchableOpacity style={styles.userWrapper}>
-                <View style={styles.imageWrapper}>
-                    <Image style={styles.avatar}
-                           source={{uri: `data:image/jpeg;base64,${user.avatar}`}}
-                           resizeMode={"cover"}
-                    />
-                </View>
-                <View style={styles.infoWrapper}>
-                    <Text style={styles.username}>{user.username}</Text>
-                    <Text style={styles.email}>{user.email}</Text>
-                </View>
-            </TouchableOpacity>
+        <TouchableOpacity style={styles.userWrapper} onPress={navigationHandler}>
+            <View style={styles.imageWrapper}>
+                <Image style={styles.avatar}
+                       source={{uri: `data:image/jpeg;base64,${user.avatar}`}}
+                       resizeMode={"cover"}
+                />
+            </View>
+            <View style={styles.infoWrapper}>
+                <Text style={styles.username}>{user.username}</Text>
+                <Text style={styles.email}>{user.email}</Text>
+            </View>
+        </TouchableOpacity>
     );
 };
 

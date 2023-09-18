@@ -21,6 +21,7 @@ import AddImageDishScreen from "./src/screens/AddImageDishScreen";
 import EditDishScreen from "./src/screens/EditDishScreen";
 import EditImageDishScreen from "./src/screens/EditImageDishScreen";
 import ViewUsersScreen from "./src/screens/ViewUsersScreen";
+import UserDetailsScreen from "./src/screens/UserDetailsScreen";
 
 
 export default function App() {
@@ -64,6 +65,7 @@ export default function App() {
                                 <Stack.Screen name="EditImageDishScreen" component={EditImageDishScreen}/>
                                 <Stack.Screen name="EditDishScreen" component={EditDishScreen}/>
                                 <Stack.Screen name="ViewUsersScreen" component={ViewUsersScreen}/>
+                                <Stack.Screen name="UserDetailsScreen" component={UserDetailsScreen}/>
                             </Stack.Navigator>
                         </NavigationContainer>
                         :
