@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {FlatList, StyleSheet, TextInput, View} from "react-native";
 import MenuItem from "./UI/MenuItem";
-import {useGetAllDishesQuery, useGetDishesByKeywordsMutation} from "../redux/services/DishesService";
+import {useGetDishesByKeywordsMutation} from "../redux/services/DishesService";
 import {useDispatch, useSelector} from "react-redux";
 import {saveDishes} from "../redux/features/DishesSlice";
 import MySpinner from "./UI/MySpiner";
@@ -11,10 +11,9 @@ const Menu = () => {
     const dispatch = useDispatch();
     const lang = useSelector(state => state.langReducer.lang)
     const user = useSelector(state => state.authReducer.userFromJWT)
-    const [getDishesByKeywords] = useGetDishesByKeywordsMutation()
+    const [getDishesByKeywords, {isLoading}] = useGetDishesByKeywordsMutation()
     const [searchQuery, setSearchQuery] = useState('');
     const dishesFromSlice = useSelector(state => state.dishesReducer.dishes)
-    const {data, isLoading} = useGetAllDishesQuery({lang: lang, userId: user.id})
     const searchDishesHandler = async () => {
         return getDishesByKeywords({lang: lang, words: searchQuery, userId: user.id})
     }

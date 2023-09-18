@@ -32,6 +32,16 @@ const MyProfileScreen = () => {
                 <Text style={styles.link}>{locMySettings}</Text>
             </TouchableOpacity>
 
+
+            <TouchableOpacity style={styles.linkWrapper}
+                onPress={() => navigation.navigate("ViewUsersScreen")}
+            >
+                <Ionicons name={"list-outline"} size={40} color={"#000000"}/>
+                <Text style={styles.link}>List of users</Text>
+            </TouchableOpacity>
+
+
+
             <TouchableOpacity style={styles.linkWrapper}
                               onPress={logOutHandler}
             >

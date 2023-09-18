@@ -11,7 +11,6 @@ const AddNewDishScreen = () => {
     const lang = useSelector(state => state.langReducer.lang)
 
     const addImageHandler = async (values) => {
-
         navigation.navigate('AddImageDishScreen', {
             values
         })

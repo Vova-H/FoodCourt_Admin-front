@@ -6,6 +6,7 @@ import authReducer from '../features/AuthSlice';
 import langReducer from '../features/LangSlice';
 import dishesReducer from '../features/DishesSlice';
 import userReducer from "../features/UserSlice"
+import usersReducer from "../features/UsersSlice"
 import currencyReducer from "../features/CurrenciesSlice"
 import {avatarAPI} from "../services/AvatarService";
 import {currenciesAPI} from "../services/CurrenciesService";
@@ -22,6 +23,7 @@ export const setupStore = () => {
             authReducer,
             langReducer,
             userReducer,
+            usersReducer,
             currencyReducer
         },
         middleware: (getDefaultMiddleware) =>

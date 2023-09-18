@@ -17,6 +17,22 @@ export const usersAPI = createApi({
     }),
     tagTypes: ['Users'],
     endpoints: (builder) => ({
+
+
+        getAllUsers: builder.mutation({
+            query: (queries) => {
+                return {
+                    url: `/?words=${queries.words}`,
+                    method: "POST",
+                    headers: {
+                        'Content-type': 'application/json; charset=UTF-8'
+                    }
+                };
+            },
+            invalidatesTags: ['Users']
+        }),
+
+
         getUserById: builder.query({
             query: (id) => {
                 return {
@@ -30,19 +46,10 @@ export const usersAPI = createApi({
             },
             invalidatesTags: ['Users']
         }),
-        changeDiscountStatus: builder.mutation({
-            query: (id) => {
-                return {
-                    url: `/use_discount/${id}`,
-                    method: "POST",
-                    headers: {
-                        'Content-type': 'application/json; charset=UTF-8'
-                    }
-                };
-            },
-            invalidatesTags: ['Users']
-        }),
     })
 });
 
-export const {useGetUserByIdQuery, useChangeDiscountStatusMutation} = usersAPI;
+export const {
+    useGetUserByIdQuery,
+    useGetAllUsersMutation
+} = usersAPI;

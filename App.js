@@ -20,6 +20,8 @@ import AvatarChangeScreen from "./src/screens/AvatarChangeScreen";
 import AddImageDishScreen from "./src/screens/AddImageDishScreen";
 import EditDishScreen from "./src/screens/EditDishScreen";
 import EditImageDishScreen from "./src/screens/EditImageDishScreen";
+import ViewUsersScreen from "./src/screens/ViewUsersScreen";
+
 
 export default function App() {
     const [loaded, setLoaded] = useState(false);
@@ -61,6 +63,7 @@ export default function App() {
                                 <Stack.Screen name="AddImageDishScreen" component={AddImageDishScreen}/>
                                 <Stack.Screen name="EditImageDishScreen" component={EditImageDishScreen}/>
                                 <Stack.Screen name="EditDishScreen" component={EditDishScreen}/>
+                                <Stack.Screen name="ViewUsersScreen" component={ViewUsersScreen}/>
                             </Stack.Navigator>
                         </NavigationContainer>
                         :
