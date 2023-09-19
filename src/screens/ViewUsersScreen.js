@@ -1,7 +1,6 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {FlatList, StyleSheet, TextInput, View} from "react-native";
 import theme from "../../theme";
-import {useNavigation} from "@react-navigation/native";
 import {useDispatch, useSelector} from "react-redux";
 import {useGetAllUsersMutation} from "../redux/services/UsersService";
 import UserItem from "../components/UI/UserItem";
@@ -9,10 +8,8 @@ import {saveUsers} from "../redux/features/UsersSlice";
 import MySpinner from "../components/UI/MySpiner";
 
 const ViewUsersScreen = () => {
-    const navigation = useNavigation()
     const dispatch = useDispatch()
     const users = useSelector(state => state.usersReducer.users)
-    const lang = useSelector(state => state.langReducer.lang)
     const [searchQuery, setSearchQuery] = useState('');
     const [initialLoading, setInitialLoading] = useState(true)
     const [getAllUsers, {isLoading}] = useGetAllUsersMutation()

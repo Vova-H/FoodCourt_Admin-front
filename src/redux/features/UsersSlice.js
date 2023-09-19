@@ -1,7 +1,8 @@
 import {createSlice} from '@reduxjs/toolkit';
 
 const initialState = {
-    users: {}
+    users: [],
+    userDetailsSlice: {}
 };
 
 export const usersSlice = createSlice({
@@ -10,8 +11,13 @@ export const usersSlice = createSlice({
     reducers: {
         saveUsers(state, action) {
             state.users = action.payload
-        }
-    }
+        },
+        changeRoleForUser(state, action) {
+            const user = state.users.find(user => user.id === action.payload.userId)
+            user.roles = action.payload.roles
+        },
+    },
+
 });
-export const {saveUsers} = usersSlice.actions
+export const {saveUsers, changeRoleForUser} = usersSlice.actions
 export default usersSlice.reducer;

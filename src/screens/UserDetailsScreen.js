@@ -1,9 +1,12 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Image, StyleSheet, Switch, Text, View} from "react-native";
 import theme from "../../theme";
 import {useAddRoleWorkerMutation, useRemoveRoleWorkerMutation} from "../redux/services/UsersService";
+import {useDispatch} from "react-redux";
+import {changeRoleForUser} from "../redux/features/UsersSlice";
 
 const UserDetailsScreen = (props) => {
+    const dispatch = useDispatch()
     const user = props.route.params.user;
     const [isWorker, setIsWorker] = useState(user.roles.some(role => role.role === 'WORKER'));
     const [roles, setRoles] = useState(user.roles)
@@ -18,6 +21,10 @@ const UserDetailsScreen = (props) => {
         const result = await removeRoleWorker({userId: user.id})
         setRoles(result.data)
     }
+
+    useEffect(() => {
+        dispatch(changeRoleForUser({userId: user.id, roles: roles}))
+    }, [roles]);
 
     return (
         <View style={styles.container}>
@@ -46,7 +53,9 @@ const UserDetailsScreen = (props) => {
                     value={isWorker}
                     onValueChange={(value) => {
                         setIsWorker(value)
-                        value ? addRoleWorkerHandler() :
+                        value ?
+                            addRoleWorkerHandler()
+                            :
                             removeRoleWorkerHandler()
                     }}
                 />
