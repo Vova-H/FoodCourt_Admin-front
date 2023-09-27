@@ -1,4 +1,5 @@
 const defineCurrency = (lang, currencies, price = 1) => {
+
     if (lang === "en" || lang === "en-US") {
         return {
             "price": price,

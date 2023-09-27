@@ -45,17 +45,23 @@ const LoginForm = () => {
             } else if (response?.data?.token) {
                 const userFromJWT = ParseJWTHelper(response.data.token)
                 const hasPermissions = hasPermissionsHelper(userFromJWT.roles)
-                if (!hasPermissions) {
+                if (!hasPermissions[0]) {
                     Alert.alert("Enter error", "You don't have enough authority")
                     resetForm();
                 } else {
                     const token = await response.data.token
                     await SecureStore.setItemAsync("token", token)
                     dispatch(authorizeUser())
-                    dispatch(saveUserFromJWT(userFromJWT))
                     dispatch(saveJWT(token))
-                    navigation.navigate("HomeScreen")
-                    resetForm();
+                    dispatch(saveUserFromJWT(userFromJWT))
+                    if (hasPermissions[1].some(role => role === "ADMIN")) {
+                        navigation.navigate("HomeScreen")
+                        resetForm();
+                    } else {
+                        navigation.navigate("MainWorkerScreen")
+                        resetForm();
+                    }
+
                 }
             }
             setIsLoading(false);
@@ -67,7 +73,7 @@ const LoginForm = () => {
 
     return (
         <Formik
-            initialValues={{email: "vova@gmail.com", password: "12345678"}}
+            initialValues={{email: "test@gmail.com", password: "12345678"}}
             validationSchema={LoginSchema(lang)}
             onSubmit={(values, {resetForm}) => {
                 loginHandler(values, resetForm);

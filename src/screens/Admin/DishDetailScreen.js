@@ -1,16 +1,16 @@
 import React, {useState} from 'react';
 import {Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import theme from "../../theme";
+import theme from "../../../theme";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigation} from "@react-navigation/native";
-import {i18n} from "../redux/features/LangSlice";
-import defineCurrency from "../helpers/defineCurrency";
-import {hideDishSlice, showDishSlice} from "../redux/features/DishesSlice";
-import {useHideDishMutation, useShowDishMutation} from "../redux/services/DishesService";
+import {i18n} from "../../redux/features/LangSlice";
+import defineCurrency from "../../helpers/defineCurrency";
+import {hideDishSlice, showDishSlice} from "../../redux/features/DishesSlice";
+import {useHideDishMutation, useShowDishMutation} from "../../redux/services/DishesService";
 
-const headerImg = require("../../assets/img/MenuItemHeader.png")
-const flame = require("../../assets/img/Flame.png")
+const headerImg = require("../../../assets/img/MenuItemHeader.png")
+const flame = require("../../../assets/img/Flame.png")
 
 
 const DishDetailScreen = (props) => {

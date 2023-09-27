@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {Image, StyleSheet, Switch, Text, View} from "react-native";
-import theme from "../../theme";
-import {useAddRoleWorkerMutation, useRemoveRoleWorkerMutation} from "../redux/services/UsersService";
+import theme from "../../../theme";
+import {useAddRoleWorkerMutation, useRemoveRoleWorkerMutation} from "../../redux/services/UsersService";
 import {useDispatch} from "react-redux";
-import {changeRoleForUser} from "../redux/features/UsersSlice";
+import {changeRoleForUser} from "../../redux/features/UsersSlice";
 
 const UserDetailsScreen = (props) => {
     const dispatch = useDispatch()

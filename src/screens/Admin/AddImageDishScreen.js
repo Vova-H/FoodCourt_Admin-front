@@ -2,22 +2,21 @@ import React, {useEffect, useState} from 'react';
 import {Alert, Image, StyleSheet, View} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import {useSelector} from 'react-redux';
-import CustomButton from '../components/UI/CustomButton';
-import theme from '../../theme';
-import {useEditDishMutation} from "../redux/services/DishesService";
+import CustomButton from '../../components/UI/CustomButton';
+import theme from '../../../theme';
+import {useAddDishMutation} from "../../redux/services/DishesService";
 import {useNavigation} from "@react-navigation/native";
 
-const EditImageDishScreen = (props) => {
+const AddImageDishScreen = (props) => {
     const dish = props.route.params.values;
     const [imageFromProps, setImageFromProps] = useState(props.route.params.image)
-    const [hasGalleryPermission, setHasGalleryPermission] = useState(false);
-    const [imageURI, setImageURI] = useState('');
+    const [, setHasGalleryPermission] = useState(false);
+    const [, setImageURI] = useState('');
     const [image, setImage] = useState('');
     const [loader, setLoader] = useState(false);
-    const lang = useSelector((state) => state.langReducer.lang);
-    const [editDish] = useEditDishMutation()
+    useSelector((state) => state.langReducer.lang);
+    const [addDish] = useAddDishMutation()
     const navigation = useNavigation();
-
     useEffect(() => {
         galleryStatusHandler();
     }, []);
@@ -58,12 +57,12 @@ const EditImageDishScreen = (props) => {
                 setLoader(false);
             }, 1500);
         } catch (e) {
-            console.log('Update dish Error:', e);
+            console.log('Add dish Error:', e);
             setLoader(false);
         }
     };
 
-    const editDishHandler = async () => {
+    const createDishHandler = async () => {
         try {
             const formData = new FormData();
             formData.append('image', {
@@ -72,8 +71,7 @@ const EditImageDishScreen = (props) => {
                 type: 'image/png',
             });
             formData.append('dish', JSON.stringify(dish));
-            const response = await editDish({formData: formData, id: dish.id})
-            console.log(response)
+            const response = await addDish(formData)
             Alert.alert("Message", response.data.message)
             navigation.reset({
                 index: 0,
@@ -114,9 +112,9 @@ const EditImageDishScreen = (props) => {
             </View>
 
             {image && !loader ? (
-                <CustomButton title={'Update'} pressFunc={editDishHandler}/>
+                <CustomButton title={'Create'} pressFunc={createDishHandler}/>
             ) : (
-                <CustomButton title={'Update'} inActive={true}/>
+                <CustomButton title={'Create'} inActive={true}/>
             )}
         </View>
     );
@@ -140,4 +138,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default EditImageDishScreen;
+export default AddImageDishScreen;

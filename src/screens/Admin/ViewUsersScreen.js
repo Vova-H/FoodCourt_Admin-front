@@ -1,11 +1,11 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {FlatList, StyleSheet, TextInput, View} from "react-native";
-import theme from "../../theme";
+import theme from "../../../theme";
 import {useDispatch, useSelector} from "react-redux";
-import {useGetAllUsersMutation} from "../redux/services/UsersService";
-import UserItem from "../components/UI/UserItem";
-import {saveUsers} from "../redux/features/UsersSlice";
-import MySpinner from "../components/UI/MySpiner";
+import {useGetAllUsersMutation} from "../../redux/services/UsersService";
+import UserItem from "../../components/UI/UserItem";
+import {saveUsers} from "../../redux/features/UsersSlice";
+import MySpinner from "../../components/UI/MySpiner";
 
 const ViewUsersScreen = () => {
     const dispatch = useDispatch()

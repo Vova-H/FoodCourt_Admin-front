@@ -1,18 +1,18 @@
 import React, {useEffect} from 'react';
 import {StyleSheet, Text, View} from "react-native";
-import theme from "../../theme";
-import WelcomeInfo from "../components/WelcomeInfo";
-import Menu from "../components/Menu";
+import theme from "../../../theme";
+import WelcomeInfo from "../../components/WelcomeInfo";
+import Menu from "../../components/Menu";
 import {useDispatch, useSelector} from "react-redux";
-import {useGetUserByIdQuery} from "../redux/services/UsersService";
-import {saveUser} from "../redux/features/UserSlice";
-import {i18n} from "../redux/features/LangSlice";
-import {useGetCurrenciesQuery} from "../redux/services/CurrenciesService";
-import {saveCurrencies} from "../redux/features/CurrenciesSlice";
-import MySpinner from "../components/UI/MySpiner";
+import {useGetUserByIdQuery} from "../../redux/services/UsersService";
+import {saveUser} from "../../redux/features/UserSlice";
+import {i18n} from "../../redux/features/LangSlice";
+import {useGetCurrenciesQuery} from "../../redux/services/CurrenciesService";
+import {saveCurrencies} from "../../redux/features/CurrenciesSlice";
+import MySpinner from "../../components/UI/MySpiner";
 
 const HomeScreen = () => {
-    const lang = useSelector(state => state.langReducer.lang)
+    useSelector(state => state.langReducer.lang)
     const dispatch = useDispatch()
     const user = useSelector(state => state.authReducer.userFromJWT)
     const {data, isLoading} = useGetUserByIdQuery(user.id)

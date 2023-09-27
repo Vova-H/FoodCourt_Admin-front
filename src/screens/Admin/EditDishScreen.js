@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, View} from "react-native";
-import theme from "../../theme";
+import theme from "../../../theme";
 import {useNavigation} from "@react-navigation/native";
 import {useSelector} from "react-redux";
-import DishEditForm from "../components/forms/DishEditForm";
-import {useGetDishByIdQuery} from "../redux/services/DishesService";
+import DishEditForm from "../../components/forms/DishEditForm";
+import {useGetDishByIdQuery} from "../../redux/services/DishesService";
 
 const EditDishScreen = (props) => {
     const id = props?.route?.params?.dishId
     const navigation = useNavigation()
-    const lang = useSelector(state => state.langReducer.lang)
+    useSelector(state => state.langReducer.lang)
     const [dish, setDish] = useState(null)
     const {data, isLoading, refetch} = useGetDishByIdQuery(id)
 

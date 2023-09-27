@@ -1,18 +1,18 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import theme from "../../theme";
+import theme from "../../../theme";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {useNavigation} from "@react-navigation/native";
 import {useDispatch, useSelector} from "react-redux";
-import {removeUser} from "../redux/features/UserSlice";
-import {logoutUser} from "../redux/features/AuthSlice";
-import {i18n} from "../redux/features/LangSlice";
+import {removeUser} from "../../redux/features/UserSlice";
+import {logoutUser} from "../../redux/features/AuthSlice";
+import {i18n} from "../../redux/features/LangSlice";
 
-const MyProfileScreen = () => {
+const MyProfileWorkerScreen = () => {
 
     const dispatch = useDispatch()
     const navigation = useNavigation()
-    const lang = useSelector(state => state.langReducer.lang)
+    useSelector(state => state.langReducer.lang)
     const locMySettings = i18n.t("myProfileScreen.mySettings")
     const locLogout = i18n.t("myProfileScreen.logout")
 
@@ -31,17 +31,6 @@ const MyProfileScreen = () => {
                 <Ionicons name={"settings-outline"} size={40} color={"#000000"}/>
                 <Text style={styles.link}>{locMySettings}</Text>
             </TouchableOpacity>
-
-
-            <TouchableOpacity style={styles.linkWrapper}
-                onPress={() => navigation.navigate("ViewUsersScreen")}
-            >
-                <Ionicons name={"list-outline"} size={40} color={"#000000"}/>
-                <Text style={styles.link}>List of users</Text>
-            </TouchableOpacity>
-
-
-
             <TouchableOpacity style={styles.linkWrapper}
                               onPress={logOutHandler}
             >
@@ -73,4 +62,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default MyProfileScreen;
+export default MyProfileWorkerScreen;

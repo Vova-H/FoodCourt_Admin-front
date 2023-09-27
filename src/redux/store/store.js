@@ -8,8 +8,10 @@ import dishesReducer from '../features/DishesSlice';
 import userReducer from "../features/UserSlice"
 import usersReducer from "../features/UsersSlice"
 import currencyReducer from "../features/CurrenciesSlice"
+import ordersReducer from "../features/OrdersSlice"
 import {avatarAPI} from "../services/AvatarService";
 import {currenciesAPI} from "../services/CurrenciesService";
+import {ordersAPI} from "../services/OrdersService";
 
 export const setupStore = () => {
     return configureStore({
@@ -19,17 +21,19 @@ export const setupStore = () => {
             [usersAPI.reducerPath]: usersAPI.reducer,
             [avatarAPI.reducerPath]: avatarAPI.reducer,
             [currenciesAPI.reducerPath]: currenciesAPI.reducer,
+            [ordersAPI.reducerPath]: ordersAPI.reducer,
             dishesReducer,
             authReducer,
             langReducer,
             userReducer,
             usersReducer,
-            currencyReducer
+            currencyReducer,
+            ordersReducer
         },
         middleware: (getDefaultMiddleware) =>
             getDefaultMiddleware().concat([
                 authAPI.middleware, dishesAPI.middleware, usersAPI.middleware,
-                avatarAPI.middleware, currenciesAPI.middleware
+                avatarAPI.middleware, currenciesAPI.middleware, ordersAPI.middleware
             ])
     });
 };

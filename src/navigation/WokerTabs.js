@@ -1,12 +1,11 @@
 import React from 'react';
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
-import HomeScreen from "../screens/HomeScreen";
-import MyProfileScreen from "../screens/MyProfileScreen";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import AddNewDishScreen from "../screens/AddNewDishScreen";
+import MainWorkerScreen from "../screens/Worker/MainWorkerScreen";
+import MyProfileWorkerScreen from "../screens/Worker/MyProfileWorkerScreen";
 
 
-const HomeTab = () => {
+const WorkerTabs = () => {
     const Tab = createBottomTabNavigator()
     return (
         <Tab.Navigator
@@ -14,14 +13,10 @@ const HomeTab = () => {
                 headerShown: false,
                 tabBarIcon: ({focused, color, size}) => {
                     let iconName;
-                    if (route.name === 'Home') {
+                    if (route.name === 'Main') {
                         iconName = focused
                             ? 'home-outline'
                             : 'home-outline';
-                    } else if (route.name === 'AddDish') {
-                        iconName = focused
-                            ? 'add-circle-outline'
-                            : 'add-circle-outline';
                     } else if (route.name === 'Profile') {
                         iconName = focused
                             ? 'person-circle-outline'
@@ -33,11 +28,10 @@ const HomeTab = () => {
                 tabBarInactiveTintColor: '#000',
                 tabBarShowLabel: false,
             })}>
-            <Tab.Screen name="Home" component={HomeScreen}/>
-            <Tab.Screen name="AddDish" component={AddNewDishScreen}/>
-            <Tab.Screen name="Profile" component={MyProfileScreen}/>
+            <Tab.Screen name="Main" component={MainWorkerScreen}/>
+            <Tab.Screen name="Profile" component={MyProfileWorkerScreen}/>
         </Tab.Navigator>
     );
 };
 
-export default HomeTab;
+export default WorkerTabs;
