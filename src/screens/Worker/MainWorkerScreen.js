@@ -16,7 +16,6 @@ const MainWorkerScreen = () => {
     const lang = useSelector((state) => state.langReducer.lang);
 
     const [orders, setOrders] = useState([]);
-
     const fetchAndSetOrders = useCallback(async () => {
         if (!isLoading) {
             try {
@@ -29,7 +28,7 @@ const MainWorkerScreen = () => {
                     dispatch(saveOrders(newOrders));
                 }
             } catch (error) {
-                console.error('Ошибка при получении заказов:', error);
+                console.error('Error receiving orders:', error);
             }
         }
     }, [isLoading, lang, orders, dispatch]);
@@ -38,7 +37,7 @@ const MainWorkerScreen = () => {
         if (!isLoading) {
             dispatch(saveUser(data));
         }
-    }, [isLoading]);
+    }, [isLoading, lang]);
 
     useEffect(() => {
         fetchAndSetOrders();
@@ -48,7 +47,7 @@ const MainWorkerScreen = () => {
         return () => {
             clearInterval(intervalId);
         };
-    }, [isLoading, fetchAndSetOrders]);
+    }, [isLoading, fetchAndSetOrders, lang]);
 
     const renderOrder = ({item}) => <OrderItem order={item}/>;
 

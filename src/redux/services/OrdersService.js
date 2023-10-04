@@ -33,7 +33,7 @@ export const ordersAPI = createApi({
         completeOrderById: build.mutation({
             query: (data) =>
                 ({
-                    url: `completeOrderById/?id=${data.orderId}`,
+                    url: `completeOrderById/?id=${data.orderId}&lang=${data.lang}`,
                     method: 'POST',
                     headers: {
                         'Content-type': 'application/json; charset=UTF-8'

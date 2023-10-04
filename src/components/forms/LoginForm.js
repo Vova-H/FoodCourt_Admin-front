@@ -32,8 +32,8 @@ const LoginForm = () => {
             if (response?.error?.data) {
                 switch (typeof response.error.data === "object" && !Array.isArray(response.error.data)) {
                     case true :
-                        if (response.error.data) {
-                            Alert.alert(`${locLoginError}`, response.error.data.message)
+                        if (response?.error?.data) {
+                            Alert.alert(`${locLoginError}`, response.error.data.message.toString())
                         }
                         break
                     case false:

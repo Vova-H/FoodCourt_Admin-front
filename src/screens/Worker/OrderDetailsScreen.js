@@ -1,10 +1,12 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Alert, FlatList, StyleSheet, Text, View} from "react-native";
 import CustomButton from "../../components/UI/CustomButton";
 import theme from "../../../theme";
 import DishItem from "../../components/UI/Worker/DishItem";
 import {useCompleteOrderByIdMutation} from "../../redux/services/OrdersService";
 import {useNavigation} from "@react-navigation/native";
+import {useSelector} from "react-redux";
+import {i18n} from "../../redux/features/LangSlice";
 
 const OrderDetailsScreen = (props) => {
     const order = props?.route?.params.order;
@@ -12,6 +14,22 @@ const OrderDetailsScreen = (props) => {
     const [completedDishesIds, setCompletedDishesIds] = useState([]);
     const [completeOrderById] = useCompleteOrderByIdMutation()
     const navigation = useNavigation()
+    const lang = useSelector(state => state.langReducer.lang);
+    const locMessage = i18n.t("global.message")
+    const locCompleteMessage = i18n.t("ordersDetailsScreenWorker.completeMessage")
+    const locBtnTitle = i18n.t("ordersDetailsScreenWorker.btnTitle")
+
+    const locOrder = i18n.t("ordersDetailsScreenWorker.order")
+    const locDate = i18n.t("ordersDetailsScreenWorker.date")
+    const locTime = i18n.t("ordersDetailsScreenWorker.time")
+    const locStatus = i18n.t("ordersDetailsScreenWorker.status")
+    const locDiscount = i18n.t("ordersDetailsScreenWorker.discount")
+    const locYes = i18n.t("global.yes")
+    const locNo = i18n.t("global.no")
+    const locDishes = i18n.t("ordersDetailsScreenWorker.dishes")
+    const locCompleted = i18n.t("ordersDetailsScreenWorker.completed")
+    const locInProcess = i18n.t("ordersDetailsScreenWorker.inProcess")
+
     const completeCheckHandler = () => {
         const sum1 = completedDishesIds.reduce((accumulator, currentValue) => {
             return accumulator + currentValue;
@@ -22,18 +40,22 @@ const OrderDetailsScreen = (props) => {
         return sum1 === sum2;
     }
 
+    useEffect(() => {
+
+    }, [lang]);
+
     const finishOrderHandler = async () => {
         const result = completeCheckHandler()
         if (result) {
-            const response = await completeOrderById({orderId: order.id})
-            Alert.alert("Message", `${response.data.message}`)
+            const response = await completeOrderById({orderId: order.id, lang: lang})
+            Alert.alert(locMessage, `${response.data.message}`)
             if (response.data.status === 200) {
                 navigation.navigate("MainWorkerScreen")
             } else {
-                Alert.alert("Message", `${response.data.message}`)
+                Alert.alert(locMessage, `${response.data.message}`)
             }
         } else {
-            Alert.alert("Message", "You don't complete all dishes")
+            Alert.alert(locMessage, locCompleteMessage)
         }
     }
     const renderDishItem = ({item}) => {
@@ -45,17 +67,17 @@ const OrderDetailsScreen = (props) => {
             <View style={styles.orderInfo}>
                 <View>
                     <Text style={{fontSize: 22, textDecorationLine: "underline", fontWeight: "bold"}}>
-                        Order № {order.id}
+                        {locOrder} № {order.id}
                     </Text>
-                    <Text style={{fontSize: 20}}>Date: {order.date}</Text>
-                    <Text style={{fontSize: 20}}>Time: {order.time}</Text>
-                    <Text style={{fontSize: 20}}>Status: {order.status ? 'Completed' : 'In Process'}</Text>
-                    <Text style={{fontSize: 20}}>Discount: {order.discount ? 'Yes' : 'No'}</Text>
+                    <Text style={{fontSize: 20}}>{locDate}: {order.date}</Text>
+                    <Text style={{fontSize: 20}}>{locTime}: {order.time}</Text>
+                    <Text style={{fontSize: 20}}>{locStatus}: {order.status ? locCompleted : locInProcess}</Text>
+                    <Text style={{fontSize: 20}}>{locDiscount}: {order.discount ? locYes : locNo}</Text>
                 </View>
                 <View>
-                    <CustomButton title={"Complete Order"}
+                    <CustomButton title={locBtnTitle}
                                   pressFunc={finishOrderHandler}
-                                  propsButtonStyles={{width: "100%", height: "25%", padding: 10}}
+                                  propsButtonStyles={{width: "100%", height: "25%", padding: 10, paddingHorizontal: 30}}
                                   inActive={false}
                     />
                 </View>
@@ -63,7 +85,7 @@ const OrderDetailsScreen = (props) => {
 
 
             <View style={styles.dishesContainer}>
-                <Text style={styles.dishesHeader}>Dishes:</Text>
+                <Text style={styles.dishesHeader}>{locDishes}:</Text>
                 <FlatList
                     data={dishes}
                     renderItem={renderDishItem}
