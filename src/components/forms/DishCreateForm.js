@@ -1,13 +1,16 @@
 import React, {useState} from 'react';
 import {ScrollView, StyleSheet, Text, TextInput, View} from 'react-native';
 import {Formik} from 'formik';
-import dishValidationSchema from "../../validations/dish-validation.Schema";
+
 import theme from "../../../theme";
 import CustomInput from "../UI/CustomInput";
 import CustomButton from "../UI/CustomButton";
-
+import {i18n} from "../../redux/features/LangSlice";
+import DishSchema from "../../validations/dish-validation.Schema";
+import {useSelector} from "react-redux";
 
 const DishCreateForm = ({onSubmit}) => {
+    const lang = useSelector(state => state.langReducer.lang);
     const [formValues] = useState({
         name: '',
         description: '',
@@ -15,10 +18,18 @@ const DishCreateForm = ({onSubmit}) => {
         calories: '',
         price: '',
     });
+
+    const locBtnTittle = i18n.t("addNewDishScreen.buttonTitle")
+    const locNameOfDish = i18n.t("addNewDishScreen.name")
+    const locDescriptionOfDish = i18n.t("addNewDishScreen.description")
+    const locWeightOfDish = i18n.t("addNewDishScreen.weight")
+    const locCaloriesOfDish = i18n.t("addNewDishScreen.calories")
+    const locPriceOfDish = i18n.t("addNewDishScreen.price")
+
     return (
         <Formik
             initialValues={formValues}
-            validationSchema={dishValidationSchema}
+            validationSchema={DishSchema(lang)}
             onSubmit={(values) => {
                 onSubmit({...values});
             }}
@@ -27,52 +38,52 @@ const DishCreateForm = ({onSubmit}) => {
                 <ScrollView style={styles.container}>
                     <View>
                         <CustomInput
-                            inputLabel={"Name of dish"}
+                            inputLabel={locNameOfDish}
                             onChangeText={handleChange('name')}
                             value={values.name}
-                            placeholder="Name"
+                            placeholder={locNameOfDish}
                         />
                         {errors.name && <Text style={styles.validationErrorText}>{errors.name}</Text>}
 
-                        <Text style={styles.label}>Description of dish</Text>
+                        <Text style={styles.label}>{locDescriptionOfDish}</Text>
                         <TextInput
                             style={styles.textInput}
                             onChangeText={handleChange('description')}
                             value={values.description}
-                            placeholder="Description"
+                            placeholder={locDescriptionOfDish}
                             multiline={true}
                             numberOfLines={6}
                             maxLength={255}
                         />
                         {errors.description && <Text style={styles.validationErrorText}>{errors.description}</Text>}
                         <CustomInput
-                            inputLabel={"Weight ( g ) "}
+                            inputLabel={locWeightOfDish}
                             onChangeText={handleChange('weight')}
                             value={values.weight}
-                            placeholder="Weight"
+                            placeholder={locWeightOfDish}
                             keyboardType="numeric"
                         />
                         {errors.weight && <Text style={styles.validationErrorText}>{errors.weight}</Text>}
 
                         <CustomInput
-                            inputLabel={"Calories ( KCal ) "}
+                            inputLabel={locCaloriesOfDish}
                             onChangeText={handleChange('calories')}
                             value={values.calories}
-                            placeholder="Calories"
+                            placeholder={locCaloriesOfDish}
                             keyboardType="numeric"
                         />
                         {errors.calories && <Text style={styles.validationErrorText}>{errors.calories}</Text>}
 
                         <CustomInput
-                            inputLabel={"Price ( in $ )"}
+                            inputLabel={locPriceOfDish}
                             onChangeText={handleChange('price')}
                             value={values.price}
-                            placeholder="Price"
+                            placeholder={locPriceOfDish}
                             keyboardType="numeric"
                         />
                         {errors.price && <Text style={styles.validationErrorText}>{errors.price}</Text>}
 
-                        <CustomButton title="Next" pressFunc={handleSubmit}
+                        <CustomButton title={locBtnTittle} pressFunc={handleSubmit}
                                       propsButtonStyles={{width: "100%", marginBottom: 30}}
                         />
 

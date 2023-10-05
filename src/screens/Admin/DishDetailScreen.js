@@ -115,7 +115,8 @@ const styles = StyleSheet.create({
         marginBottom: 5,
         fontFamily: theme.fonts.robotoBold,
         fontSize: 24,
-        letterSpacing: 1
+        letterSpacing: 1,
+        textTransform:"capitalize"
     },
     headerSubtitle: {
         textAlign: "center",

@@ -73,7 +73,7 @@ const LoginForm = () => {
 
     return (
         <Formik
-            initialValues={{email: "test@gmail.com", password: "12345678"}}
+            initialValues={{email: "", password: ""}}
             validationSchema={LoginSchema(lang)}
             onSubmit={(values, {resetForm}) => {
                 loginHandler(values, resetForm);

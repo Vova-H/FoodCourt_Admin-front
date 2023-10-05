@@ -14,7 +14,7 @@ const EditImageDishScreen = (props) => {
     const [, setImageURI] = useState('');
     const [image, setImage] = useState('');
     const [loader, setLoader] = useState(false);
-    useSelector((state) => state.langReducer.lang);
+    const lang = useSelector((state) => state.langReducer.lang);
     const [editDish] = useEditDishMutation()
     const navigation = useNavigation();
 
@@ -72,7 +72,7 @@ const EditImageDishScreen = (props) => {
                 type: 'image/png',
             });
             formData.append('dish', JSON.stringify(dish));
-            const response = await editDish({formData: formData, id: dish.id})
+            const response = await editDish({formData: formData, id: dish.id, lang: lang})
             Alert.alert("Message", response.data.message)
             navigation.reset({
                 index: 0,

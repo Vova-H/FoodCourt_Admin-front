@@ -4,6 +4,8 @@ import theme from "../../../theme";
 import {useAddRoleWorkerMutation, useRemoveRoleWorkerMutation} from "../../redux/services/UsersService";
 import {useDispatch} from "react-redux";
 import {changeRoleForUser} from "../../redux/features/UsersSlice";
+import {i18n} from "../../redux/features/LangSlice";
+import Roles from "../../helpers/rolesTranslationHelper";
 
 const UserDetailsScreen = (props) => {
     const dispatch = useDispatch()
@@ -12,6 +14,11 @@ const UserDetailsScreen = (props) => {
     const [roles, setRoles] = useState(user.roles)
     const [addRoleWorker] = useAddRoleWorkerMutation()
     const [removeRoleWorker] = useRemoveRoleWorkerMutation()
+    const locJoined = i18n.t("userDetailsScreen.joined")
+    const locDiscountLabel = i18n.t("userDetailsScreen.discountLabel")
+    const locYes = i18n.t("global.yes")
+    const locNo = i18n.t("global.no")
+    const locIsWorker = i18n.t("userDetailsScreen.isWorker")
     const addRoleWorkerHandler = async () => {
         const result = await addRoleWorker({userId: user.id})
         setRoles(result.data)
@@ -36,17 +43,11 @@ const UserDetailsScreen = (props) => {
             </View>
             <Text style={styles.username}>{user.username}</Text>
             <Text style={styles.email}>{user.email}</Text>
-            <Text style={styles.createdAt}>Joined: {user.createdAt.slice(0, 10)}</Text>
-            <Text style={styles.createdAt}>Updated: {user.updatedAt.slice(0, 10)}</Text>
-            <Text style={styles.discount}>Discount in use: {user.discount_is_using ? "Yes" : "Not"}</Text>
-            <View style={styles.rolesContainer}>
-                <Text style={styles.rolesTitle}>Roles: </Text>
-                {roles.map(role => (
-                    <Text key={role.id} style={styles.role}>[ {role.role} ] </Text>
-                ))}
-            </View>
+            <Text style={styles.createdAt}>{locJoined}: {user.createdAt.slice(0, 10)}</Text>
+            <Text style={styles.discount}>{locDiscountLabel} {user.discount_is_using ? locYes : locNo}</Text>
+            <Roles roles={roles}/>
             <View style={styles.isWorkerContainer}>
-                <Text style={styles.isWorkerText}>Is Worker: </Text>
+                <Text style={styles.isWorkerText}>{locIsWorker}: </Text>
                 <Switch
                     trackColor={{false: 'white', true: 'black'}}
                     thumbColor={isWorker ? 'black' : 'white'}
@@ -97,19 +98,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
         marginBottom: 10,
-    },
-    rolesContainer: {
-        marginTop: 10,
-        flexDirection: "row",
-        alignItems: "center",
-        alignContent: "center",
-    },
-    rolesTitle: {
-        fontSize: 18,
-        fontWeight: 'bold',
-    },
-    role: {
-        fontSize: 16,
     },
     isWorkerContainer: {
         flexDirection: 'row',

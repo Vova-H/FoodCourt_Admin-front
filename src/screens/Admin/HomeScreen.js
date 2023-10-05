@@ -11,6 +11,7 @@ import {useGetCurrenciesQuery} from "../../redux/services/CurrenciesService";
 import {saveCurrencies} from "../../redux/features/CurrenciesSlice";
 import MySpinner from "../../components/UI/MySpiner";
 
+
 const HomeScreen = () => {
     useSelector(state => state.langReducer.lang)
     const dispatch = useDispatch()

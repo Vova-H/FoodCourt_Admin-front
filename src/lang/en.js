@@ -12,19 +12,6 @@ export const localizationEn = {
         btnFirstTime: "Next",
         btn: "Confirm"
     },
-    previewScreen1: {
-        title: "Choose your favorite food",
-        subtitle: "Let's choose your favorite food your choice with our application."
-    },
-    previewScreen2: {
-        title: "Delicious food menu",
-        subtitle: "Your order is ready to be picked up and sent directly by our courier"
-    },
-    getStartedScreen: {
-        title: "We have 5000+ review on our app",
-        subtitle: "We have 5000+ user reviews, You can check in the app store",
-        btn: "Get Started"
-    },
     welcomeScreen: {
         title: "Welcome!",
         subtitle: "Come join us now create an account or log in.",
@@ -84,11 +71,12 @@ export const localizationEn = {
     myProfileScreen: {
         mySettings: "My Settings",
         myOrders: "My Orders",
+        usersList: "List of users",
         logout: "Log Out"
     },
     mySettingsScreen: {
         changeLanguage: "Change interface language",
-        changeAvatarTitle: "Change Avatar"
+        changeAvatarTitle: "Change Avatar",
     },
     myOrdersScreen: {
         title: "You don't have any orders yet",
@@ -127,7 +115,9 @@ export const localizationEn = {
     },
 
 
-    mainWorkerScreen: {},
+    mainWorkerScreen: {
+        noOrders: "There are no orders at this time"
+    },
 
     ordersDetailsScreenWorker: {
         completeMessage: "You haven't finished all the dishes",
@@ -145,6 +135,38 @@ export const localizationEn = {
             quantity: "quantity"
         }
     },
+    addNewDishScreen: {
+        name: "Name of dish",
+        description: "Description",
+        weight: "Weight ( g ) ",
+        calories: "Calories ( KCal )",
+        price: "Price ( in $ )",
+        buttonTitle: "Next"
+    },
 
+    addDishImageScreen: {
+        chooseBtnTittle: "Chose",
+        createBtnTittle: "Create",
+        permissionMessage: "Permission to access camera roll is required!"
+    },
 
+    formValidation: {
+        addNewDishScreenErrors: {
+            name: "Name is required",
+            description: "Description is required",
+            weight: "Weight is required",
+            calories: "Calories are required",
+            price: "Price is required"
+        }
+    },
+
+    userDetailsScreen: {
+        joined: "Joined",
+        discountLabel: "Discount in use:",
+        roles: "Roles",
+        userRole: "User",
+        workerRole: "Worker",
+        adminRole: "Admin",
+        isWorker: "Is Worker"
+    }
 };

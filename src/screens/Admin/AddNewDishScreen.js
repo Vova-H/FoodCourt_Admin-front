@@ -2,13 +2,11 @@ import React from 'react';
 import {StyleSheet, View} from "react-native";
 import theme from "../../../theme";
 import {useNavigation} from "@react-navigation/native";
-import {useSelector} from "react-redux";
 import DishCreateForm from "../../components/forms/DishCreateForm";
 
 const AddNewDishScreen = () => {
 
     const navigation = useNavigation()
-    useSelector(state => state.langReducer.lang)
 
     const addImageHandler = async (values) => {
         navigation.navigate('AddImageDishScreen', {

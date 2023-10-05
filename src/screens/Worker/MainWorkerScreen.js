@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {FlatList, StyleSheet, View} from 'react-native';
+import {FlatList, StyleSheet, Text, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {useGetAllActiveOrdersMutation} from '../../redux/services/OrdersService';
 import {saveOrders} from '../../redux/features/OrdersSlice';
@@ -7,14 +7,16 @@ import {saveUser} from '../../redux/features/UserSlice';
 import {useGetUserByIdQuery} from '../../redux/services/UsersService';
 import theme from '../../../theme';
 import OrderItem from '../../components/UI/Worker/OrderItem';
+import MySpinner from "../../components/UI/MySpiner";
+import {i18n} from "../../redux/features/LangSlice";
 
 const MainWorkerScreen = () => {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.authReducer.userFromJWT);
     const {data, isLoading} = useGetUserByIdQuery(user.id);
-    const [activeOrders] = useGetAllActiveOrdersMutation();
+    const [activeOrders, {isLoading: isLoadingOrders}] = useGetAllActiveOrdersMutation();
     const lang = useSelector((state) => state.langReducer.lang);
-
+    const locNoOrders = i18n.t("mainWorkerScreen.noOrders")
     const [orders, setOrders] = useState([]);
     const fetchAndSetOrders = useCallback(async () => {
         if (!isLoading) {
@@ -51,6 +53,21 @@ const MainWorkerScreen = () => {
 
     const renderOrder = ({item}) => <OrderItem order={item}/>;
 
+    if (isLoadingOrders) {
+        return (
+            <View style={styles.container}>
+                <MySpinner colorProps={"black"}/>
+            </View>
+        )
+    } else if (!orders.length) {
+        return (
+            <View style={styles.container}>
+                <Text style={styles.noOrdersTittle}>{locNoOrders}</Text>
+            </View>
+        )
+    }
+
+
     return (
         <View style={styles.container}>
             <FlatList
@@ -79,6 +96,11 @@ const styles = StyleSheet.create({
         fontSize: 30,
         maxWidth: '90%',
     },
+    noOrdersTittle: {
+        fontSize: 23,
+        fontFamily:theme.fonts.playfairDisplayMedium,
+        textAlign:"center"
+    }
 });
 
 export default MainWorkerScreen;

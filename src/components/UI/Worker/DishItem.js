@@ -22,8 +22,8 @@ const DishItem = ({dish, completeCheck}) => {
                 isDone ?
                     <View style={{flexDirection: "row", alignItems: "center", justifyContent: "space-between"}}>
                         <View>
-                            <Text style={{fontSize: 18}}>Dish: {dish.name}</Text>
-                            <Text style={{fontSize: 18}}>Quantity: {dish.OrdersDishesModel.quantity}</Text>
+                            <Text style={{fontSize: 18}}>{locDish}: {dish.name}</Text>
+                            <Text style={{fontSize: 18}}>{locQuantity}: {dish.OrdersDishesModel.quantity}</Text>
                         </View>
                         <Ionicons name={"checkmark"} size={40} color={"green"}/>
                     </View> :
@@ -31,7 +31,6 @@ const DishItem = ({dish, completeCheck}) => {
                         <Text style={{fontSize: 18}}>{locDish}: {dish.name}</Text>
                         <Text style={{fontSize: 18}}>{locQuantity}: {dish.OrdersDishesModel.quantity}</Text>
                     </View>
-
             }
         </TouchableOpacity>
     );

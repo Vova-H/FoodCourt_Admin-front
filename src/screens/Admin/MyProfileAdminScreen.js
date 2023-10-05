@@ -15,7 +15,7 @@ const MyProfileAdminScreen = () => {
     useSelector(state => state.langReducer.lang)
     const locMySettings = i18n.t("myProfileScreen.mySettings")
     const locLogout = i18n.t("myProfileScreen.logout")
-
+    const locUsersList = i18n.t("myProfileScreen.usersList")
     const logOutHandler = () => {
         dispatch(logoutUser())
         dispatch(removeUser())
@@ -37,7 +37,7 @@ const MyProfileAdminScreen = () => {
                 onPress={() => navigation.navigate("ViewUsersScreen")}
             >
                 <Ionicons name={"list-outline"} size={40} color={"#000000"}/>
-                <Text style={styles.link}>List of users</Text>
+                <Text style={styles.link}>{locUsersList}</Text>
             </TouchableOpacity>
 
 

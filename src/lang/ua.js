@@ -12,19 +12,7 @@ export const localizationUa = {
         btnFirstTime: "Далi",
         btn: "Підтвердити"
     },
-    previewScreen1: {
-        title: "Вибрати свою улюблену їжу",
-        subtitle: "Давайте виберемо вашу улюблену їжу за допомогою нашої програми."
-    },
-    previewScreen2: {
-        title: "Меню смачної їжі",
-        subtitle: "Ваше замовлення готове до отримання та відправлення безпосередньо нашим кур’єром"
-    },
-    getStartedScreen: {
-        title: "Ми маємо понад 5000 відгуків про наш додаток",
-        subtitle: "У нас є понад 5000 відгуків користувачів, ви можете перевірити в магазині програм",
-        btn: "Почати"
-    },
+
     welcomeScreen: {
         title: "Ласкаво просимо!",
         subtitle: "Приєднуйтесь до нас зараз, створіть обліковий запис або увійдіть.",
@@ -84,6 +72,7 @@ export const localizationUa = {
     myProfileScreen: {
         mySettings: "Мої налаштування",
         myOrders: "Мої замовлення",
+        usersList: "Список користувачiв",
         logout: "Вийти"
     },
     mySettingsScreen: {
@@ -126,7 +115,9 @@ export const localizationUa = {
     },
 
 
-    mainWorkerScreen: {},
+    mainWorkerScreen: {
+        noOrders: "На даний час немає жодних замовлень"
+    },
     ordersDetailsScreenWorker: {
         completeMessage: "Ви не закінчили всі страви",
         btnTitle: "Закінчити",
@@ -142,5 +133,39 @@ export const localizationUa = {
             dish: "Блюдо",
             quantity: "Кiлькiсть"
         }
+    },
+
+    addNewDishScreen: {
+        name: "Назва страви",
+        description: "Опис",
+        weight: "Вага ( g ) ",
+        calories: "Калорії ( KCal )",
+        price: "Ціна ( в $ )",
+        buttonTitle: "Далi"
+    },
+
+    addDishImageScreen:{
+        choseBtnTittle:"Вибрати",
+        createBtnTittle:"Створити",
+        permissionMessage: "Потрібен дозвіл на доступ до галереї!"
+    },
+
+    formValidation:{
+        addNewDishScreenErrors: {
+            name: "Потрібне ім'я",
+            description: "Потрібен опис",
+            weight: "Потрібна вага",
+            calories: "Потрібні калорії",
+            price: "Ціна обов'язкова"
+        }
+    },
+    userDetailsScreen: {
+        joined: "Приєднався",
+        discountLabel: "Знижка використовується:",
+        roles: "Ролі",
+        userRole: "Користувач",
+        workerRole: "Робітник",
+        adminRole: "Адміністратор",
+        isWorker: "Є працівником"
     }
 };

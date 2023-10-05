@@ -6,6 +6,7 @@ import CustomButton from '../../components/UI/CustomButton';
 import theme from '../../../theme';
 import {useAddDishMutation} from "../../redux/services/DishesService";
 import {useNavigation} from "@react-navigation/native";
+import {i18n} from "../../redux/features/LangSlice";
 
 const AddImageDishScreen = (props) => {
     const dish = props.route.params.values;
@@ -14,9 +15,16 @@ const AddImageDishScreen = (props) => {
     const [, setImageURI] = useState('');
     const [image, setImage] = useState('');
     const [loader, setLoader] = useState(false);
-    useSelector((state) => state.langReducer.lang);
+    const lang = useSelector((state) => state.langReducer.lang);
     const [addDish] = useAddDishMutation()
     const navigation = useNavigation();
+
+
+    const locChoseBtnTittle = i18n.t("addDishImageScreen.choseBtnTittle")
+    const locCreateBtnTittle = i18n.t("addDishImageScreen.createBtnTittle")
+    const locPermissionMessage = i18n.t("addDishImageScreen.permissionMessage")
+    const locMessage = i18n.t("global.message")
+
     useEffect(() => {
         galleryStatusHandler();
     }, []);
@@ -30,7 +38,7 @@ const AddImageDishScreen = (props) => {
         const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
         if (permissionResult.granted === false) {
-            alert('Permission to access camera roll is required!');
+            Alert.alert(locMessage, locPermissionMessage);
             return;
         }
 
@@ -71,8 +79,8 @@ const AddImageDishScreen = (props) => {
                 type: 'image/png',
             });
             formData.append('dish', JSON.stringify(dish));
-            const response = await addDish(formData)
-            Alert.alert("Message", response.data.message)
+            const response = await addDish({formData: formData, lang: lang})
+            Alert.alert(locMessage, response.data.message)
             navigation.reset({
                 index: 0,
                 routes: [{name: 'HomeScreen'}],
@@ -103,18 +111,18 @@ const AddImageDishScreen = (props) => {
                 </View>
 
                 {loader ? (
-                    <CustomButton title={'Chose'} pressFunc={pickImage} propsIsLoading={true}/>
+                    <CustomButton title={locChoseBtnTittle} pressFunc={pickImage} propsIsLoading={true}/>
                 ) : image ? (
-                    <CustomButton title={'Chose'} pressFunc={pickImage}/>
+                    <CustomButton title={locChoseBtnTittle} pressFunc={pickImage}/>
                 ) : (
-                    <CustomButton title={'Chose'} pressFunc={pickImage}/>
+                    <CustomButton title={locChoseBtnTittle} pressFunc={pickImage}/>
                 )}
             </View>
 
             {image && !loader ? (
-                <CustomButton title={'Create'} pressFunc={createDishHandler}/>
+                <CustomButton title={locCreateBtnTittle} pressFunc={createDishHandler}/>
             ) : (
-                <CustomButton title={'Create'} inActive={true}/>
+                <CustomButton title={locCreateBtnTittle} inActive={true}/>
             )}
         </View>
     );

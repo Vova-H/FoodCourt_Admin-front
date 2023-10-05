@@ -13,19 +13,7 @@ export const localizationPl = {
         btnFirstTime: "Dalej",
         btn: "Potwierdzić",
     },
-    previewScreen1: {
-        title: "wybierz swoje ulubione jedzenie",
-        subtitle: "Wybierzmy Twoje ulubione jedzenie za pomocą naszej aplikacji."
-    },
-    previewScreen2: {
-        title: "menu pysznego jedzenia",
-        subtitle: "Twoje zamówienie jest gotowe do odbioru i wysłania bezpośrednio przez naszego kuriera."
-    },
-    getStartedScreen: {
-        title: "mamy ponad 5000 recenzji w naszej aplikacji",
-        subtitle: "mamy ponad 5000 recenzji użytkowników, możesz sprawdzić w sklepie z aplikacjami",
-        btn: "Zaczynaj"
-    },
+
     welcomeScreen: {
         title: "Powitanie!",
         subtitle: "Dołącz do nas już teraz, załóż konto lub zaloguj się.",
@@ -86,6 +74,7 @@ export const localizationPl = {
     myProfileScreen: {
         mySettings: "Moje ustawienia",
         myOrders: "Moje zamówienia",
+        usersList: "Lista użytkowników",
         logout: "Wyloguj Się"
     },
     mySettingsScreen: {
@@ -128,7 +117,9 @@ export const localizationPl = {
     },
 
 
-    mainWorkerScreen: {},
+    mainWorkerScreen: {
+        noOrders: "W tej chwili nie ma żadnych zamówień"
+    },
     ordersDetailsScreenWorker: {
         completeMessage: "Nie skończyłeś wszystkich naczyń",
         btnTitle: "Zakończyć",
@@ -144,6 +135,41 @@ export const localizationPl = {
             dish: "Danie",
             quantity: "Ilość"
         }
+    },
+
+
+    addNewDishScreen: {
+        name: "Nazwa dania",
+        description: "Opis",
+        weight: "Waga ( g )",
+        calories: "Kalorie ( KCal )",
+        price: "Cena ( w $ )",
+        buttonTitle: "Dalej"
+    },
+
+    addDishImageScreen: {
+        choseBtnTittle: "Wybierz",
+        createBtnTittle: "Stworzycz",
+        permissionMessage: "Wymagane jest pozwolenie na dostęp do galerii z aparatu!"
+    },
+
+    formValidation: {
+        addNewDishScreenErrors: {
+            name: "Imie jest wymagane",
+            description: "Opis jest wymagany",
+            weight: "Wymagana jest waga",
+            calories: "Wymagane są kalorie",
+            price: "Wymagana jest cena"
+        }
+    },
+    userDetailsScreen: {
+        joined: "Dołączył",
+        discountLabel: "Zniżka w użyciu:",
+        roles: "Role",
+        userRole: "Użytkownik",
+        workerRole: "Pracownik",
+        adminRole: "Admin",
+        isWorker: "Jest pracownikiem"
     }
 
 };

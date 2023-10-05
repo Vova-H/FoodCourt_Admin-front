@@ -9,9 +9,9 @@ import {useGetDishByIdQuery} from "../../redux/services/DishesService";
 const EditDishScreen = (props) => {
     const id = props?.route?.params?.dishId
     const navigation = useNavigation()
-    useSelector(state => state.langReducer.lang)
+    const lang = useSelector(state => state.langReducer.lang)
     const [dish, setDish] = useState(null)
-    const {data, isLoading, refetch} = useGetDishByIdQuery(id)
+    const {data, isLoading, refetch} = useGetDishByIdQuery({id: id, lang: lang})
 
     useEffect(() => {
         if (!isLoading) {
