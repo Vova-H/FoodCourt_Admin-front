@@ -147,9 +147,24 @@ export const localizationPl = {
         buttonTitle: "Dalej"
     },
 
+    editDishScreen: {
+        name: "Nazwa dania",
+        description: "Opis",
+        weight: "Waga ( g )",
+        calories: "Kalorie ( KCal )",
+        price: "Cena ( w $ )",
+        buttonTitle: "Aktualizować"
+    },
+
     addDishImageScreen: {
         choseBtnTittle: "Wybierz",
         createBtnTittle: "Stworzycz",
+        permissionMessage: "Wymagane jest pozwolenie na dostęp do galerii z aparatu!"
+    },
+
+    editDishImageScreen: {
+        choseBtnTittle: "Wybrać",
+        updateBtnTittle: "Aktualizować",
         permissionMessage: "Wymagane jest pozwolenie na dostęp do galerii z aparatu!"
     },
 

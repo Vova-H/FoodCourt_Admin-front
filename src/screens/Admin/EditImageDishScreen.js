@@ -1,22 +1,29 @@
-import React, {useEffect, useState} from 'react';
-import {Alert, Image, StyleSheet, View} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Alert, Image, StyleSheet, View } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import CustomButton from '../../components/UI/CustomButton';
 import theme from '../../../theme';
-import {useEditDishMutation} from "../../redux/services/DishesService";
-import {useNavigation} from "@react-navigation/native";
+import { useEditDishMutation } from "../../redux/services/DishesService";
+import { useNavigation } from "@react-navigation/native";
+import { i18n } from "../../redux/features/LangSlice";
 
 const EditImageDishScreen = (props) => {
     const dish = props.route.params.values;
-    const [imageFromProps, setImageFromProps] = useState(props.route.params.image)
+    const [imageFromProps, setImageFromProps] = useState(props.route.params.image);
     const [, setHasGalleryPermission] = useState(false);
     const [, setImageURI] = useState('');
     const [image, setImage] = useState('');
     const [loader, setLoader] = useState(false);
     const lang = useSelector((state) => state.langReducer.lang);
-    const [editDish] = useEditDishMutation()
+    const [editDish] = useEditDishMutation();
     const navigation = useNavigation();
+
+    const locChoseBtnTittle = i18n.t("editDishImageScreen.choseBtnTittle");
+    const locEditBtnTittle = i18n.t("editDishImageScreen.updateBtnTittle");
+    const locPermissionMessage = i18n.t("editDishImageScreen.permissionMessage");
+    const locMessage = i18n.t("global.message");
+    const locUpdateDishImageFailed = i18n.t("editDishImageScreen.updateDishImageFailed");
 
     useEffect(() => {
         galleryStatusHandler();
@@ -31,7 +38,7 @@ const EditImageDishScreen = (props) => {
         const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
         if (permissionResult.granted === false) {
-            alert('Permission to access camera roll is required!');
+            Alert.alert(locMessage, locPermissionMessage);
             return;
         }
 
@@ -43,23 +50,32 @@ const EditImageDishScreen = (props) => {
         });
 
         if (!result.canceled) {
-            setImageFromProps(undefined)
+            setImageFromProps(undefined);
             setImageURI(result.assets[0].uri);
             await uploadImageHandler(result.assets[0].uri);
         }
     };
 
-    const uploadImageHandler = async (uri) => {
+    const uploadImageHandler = async (uri, currentRetryCount = 0) => {
         try {
             setLoader(true);
             setImage(uri);
-            setTimeout(() => {
+            setTimeout(async () => {
                 setImageURI('');
                 setLoader(false);
             }, 1500);
         } catch (e) {
             console.log('Update dish Error:', e);
             setLoader(false);
+
+            if (currentRetryCount < 5) {
+                setTimeout(() => {
+                    uploadImageHandler(uri, currentRetryCount + 1);
+                }, 2000);
+            } else {
+                console.log('Update dish Failed after retries');
+                Alert.alert(locMessage, locUpdateDishImageFailed);
+            }
         }
     };
 
@@ -72,50 +88,49 @@ const EditImageDishScreen = (props) => {
                 type: 'image/png',
             });
             formData.append('dish', JSON.stringify(dish));
-            const response = await editDish({formData: formData, id: dish.id, lang: lang})
-            Alert.alert("Message", response.data.message)
+            const response = await editDish({ formData: formData, id: dish.id, lang: lang });
+            Alert.alert(locMessage, response?.data?.message.toString());
             navigation.reset({
                 index: 0,
-                routes: [{name: 'HomeScreen'}],
+                routes: [{ name: 'HomeScreen' }],
             });
         } catch (e) {
-            console.log(e)
+            console.log(e);
         }
     };
 
     return (
         <View style={styles.container}>
-            <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                 <View style={styles.dishWrapper}>
-                    {
-                        imageFromProps !== undefined ?
-                            <Image
-                                source={image.length ? {uri: imageFromProps} : {uri: `data:image/jpeg;base64,${imageFromProps}`}}
-                                style={styles.dish}
-                            /> :
-                            !image.length ?
-                                <View style={styles.dish}></View>
-                                :
-                                <Image
-                                    source={image.length ? {uri: image} : {uri: `data:image/jpeg;base64,${image}`}}
-                                    style={styles.dish}
-                                />
-                    }
+                    {imageFromProps !== undefined ? (
+                        <Image
+                            source={image.length ? { uri: imageFromProps } : { uri: `data:image/jpeg;base64,${imageFromProps}` }}
+                            style={styles.dish}
+                        />
+                    ) : !image.length ? (
+                        <View style={styles.dish}></View>
+                    ) : (
+                        <Image
+                            source={image.length ? { uri: image } : { uri: `data:image/jpeg;base64,${image}` }}
+                            style={styles.dish}
+                        />
+                    )}
                 </View>
 
                 {loader ? (
-                    <CustomButton title={'Chose'} pressFunc={pickImage} propsIsLoading={true}/>
+                    <CustomButton title={locChoseBtnTittle} pressFunc={pickImage} propsIsLoading={true} />
                 ) : image ? (
-                    <CustomButton title={'Chose'} pressFunc={pickImage}/>
+                    <CustomButton title={locChoseBtnTittle} pressFunc={pickImage} />
                 ) : (
-                    <CustomButton title={'Chose'} pressFunc={pickImage}/>
+                    <CustomButton title={locChoseBtnTittle} pressFunc={pickImage} />
                 )}
             </View>
 
             {image && !loader ? (
-                <CustomButton title={'Update'} pressFunc={editDishHandler}/>
+                <CustomButton title={locEditBtnTittle} pressFunc={editDishHandler} />
             ) : (
-                <CustomButton title={'Update'} inActive={true}/>
+                <CustomButton title={locEditBtnTittle} inActive={true} />
             )}
         </View>
     );
@@ -135,7 +150,7 @@ const styles = StyleSheet.create({
         width: 200,
         height: 200,
         borderRadius: 100,
-        borderWidth: 1
+        borderWidth: 1,
     },
 });
 

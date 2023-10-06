@@ -9,9 +9,9 @@ import {changeAvatarInSlice} from '../redux/features/UserSlice';
 import {i18n} from '../redux/features/LangSlice';
 
 const AvatarChangeScreen = () => {
-    const lang = useSelector((state) => state.langReducer.lang);
+    useSelector((state) => state.langReducer.lang);
     const dispatch = useDispatch();
-    const [hasGalleryPermission, setHasGalleryPermission] = useState(false);
+    const [setHasGalleryPermission] = useState(false);
     const [image, setImage] = useState('');
     const [loader, setLoader] = useState(false)
     const currentAvatar = useSelector((state) => state.userReducer.user.avatar);

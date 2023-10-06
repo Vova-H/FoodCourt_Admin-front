@@ -5,8 +5,16 @@ import dishValidationSchema from "../../validations/dish-validation.Schema";
 import theme from "../../../theme";
 import CustomInput from "../UI/CustomInput";
 import CustomButton from "../UI/CustomButton";
+import {i18n} from "../../redux/features/LangSlice";
 
 const DishEditForm = ({onSubmit, dish}) => {
+
+    const locBtnTittle = i18n.t("editDishScreen.buttonTitle")
+    const locNameOfDish = i18n.t("editDishScreen.name")
+    const locDescriptionOfDish = i18n.t("editDishScreen.description")
+    const locWeightOfDish = i18n.t("editDishScreen.weight")
+    const locCaloriesOfDish = i18n.t("editDishScreen.calories")
+    const locPriceOfDish = i18n.t("editDishScreen.price")
 
     const [localName, setLocalName] = useState(dish?.name || '');
     const [localDescription, setLocalDescription] = useState(dish?.description || '');
@@ -56,62 +64,62 @@ const DishEditForm = ({onSubmit, dish}) => {
                 <ScrollView style={styles.container}>
                     <View>
                         <CustomInput
-                            inputLabel={"Name of dish"}
+                            inputLabel={locNameOfDish}
                             onChangeText={(value) => {
                                 setLocalName(value);
                             }}
                             value={localName}
-                            placeholder="Name"
+                            placeholder={locNameOfDish}
                         />
                         {errors.name && <Text style={styles.validationErrorText}>{errors.name}</Text>}
 
-                        <Text style={styles.label}>Description of dish</Text>
+                        <Text style={styles.label}>{locDescriptionOfDish}</Text>
                         <TextInput
                             style={styles.textInput}
                             onChangeText={(value) => {
                                 setLocalDescription(value);
                             }}
                             value={localDescription}
-                            placeholder="Description"
+                            placeholder={locDescriptionOfDish}
                             multiline={true}
                             numberOfLines={6}
                             maxLength={255}
                         />
                         {errors.description && <Text style={styles.validationErrorText}>{errors.description}</Text>}
                         <CustomInput
-                            inputLabel={"Weight ( g ) "}
+                            inputLabel={locWeightOfDish}
                             onChangeText={(value) => {
                                 setLocalWeight(value);
                             }}
                             value={localWeight}
-                            placeholder="Weight"
+                            placeholder={locWeightOfDish}
                             keyboardType="numeric"
                         />
                         {errors.weight && <Text style={styles.validationErrorText}>{errors.weight}</Text>}
 
                         <CustomInput
-                            inputLabel={"Calories ( KCal ) "}
+                            inputLabel={locCaloriesOfDish}
                             onChangeText={(value) => {
                                 setLocalCalories(value);
                             }}
                             value={localCalories}
-                            placeholder="Calories"
+                            placeholder={locCaloriesOfDish}
                             keyboardType="numeric"
                         />
                         {errors.calories && <Text style={styles.validationErrorText}>{errors.calories}</Text>}
 
                         <CustomInput
-                            inputLabel={"Price ( in $ )"}
+                            inputLabel={locPriceOfDish}
                             onChangeText={(value) => {
                                 setLocalPrice(value);
                             }}
                             value={localPrice}
-                            placeholder="Price"
+                            placeholder={locPriceOfDish}
                             keyboardType="numeric"
                         />
                         {errors.price && <Text style={styles.validationErrorText}>{errors.price}</Text>}
 
-                        <CustomButton title="Next" pressFunc={handleSubmit}
+                        <CustomButton title={locBtnTittle} pressFunc={handleSubmit}
                                       propsButtonStyles={{width: "100%", marginBottom: 30}}
                         />
 

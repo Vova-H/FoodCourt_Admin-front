@@ -144,9 +144,24 @@ export const localizationEn = {
         buttonTitle: "Next"
     },
 
+    editDishScreen: {
+        name: "Name of dish",
+        description: "Description",
+        weight: "Weight ( g ) ",
+        calories: "Calories ( KCal )",
+        price: "Price ( in $ )",
+        buttonTitle: "Update"
+    },
+
     addDishImageScreen: {
         chooseBtnTittle: "Chose",
         createBtnTittle: "Create",
+        permissionMessage: "Permission to access camera roll is required!"
+    },
+
+    editDishImageScreen: {
+        choseBtnTittle: "Chose",
+        updateBtnTittle: "Update",
         permissionMessage: "Permission to access camera roll is required!"
     },
 

@@ -144,13 +144,28 @@ export const localizationUa = {
         buttonTitle: "Далi"
     },
 
-    addDishImageScreen:{
-        choseBtnTittle:"Вибрати",
-        createBtnTittle:"Створити",
+    editDishScreen: {
+        name: "Назва страви",
+        description: "Опис",
+        weight: "Вага ( g ) ",
+        calories: "Калорії ( KCal )",
+        price: "Ціна ( в $ )",
+        buttonTitle: "Оновити"
+    },
+
+    addDishImageScreen: {
+        choseBtnTittle: "Вибрати",
+        createBtnTittle: "Створити",
         permissionMessage: "Потрібен дозвіл на доступ до галереї!"
     },
 
-    formValidation:{
+    editDishImageScreen: {
+        choseBtnTittle: "Вибрати",
+        updateBtnTittle: "Оновити",
+        permissionMessage: "Потрібен дозвіл на доступ до галереї!"
+    },
+
+    formValidation: {
         addNewDishScreenErrors: {
             name: "Потрібне ім'я",
             description: "Потрібен опис",
