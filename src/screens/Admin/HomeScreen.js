@@ -13,10 +13,10 @@ import MySpinner from "../../components/UI/MySpiner";
 
 
 const HomeScreen = () => {
-    useSelector(state => state.langReducer.lang)
+    const lang = useSelector(state => state.langReducer.lang)
     const dispatch = useDispatch()
     const user = useSelector(state => state.authReducer.userFromJWT)
-    const {data, isLoading} = useGetUserByIdQuery(user.id)
+    const {data, isLoading} = useGetUserByIdQuery({id: user.id, lang: lang})
     const locMenu = i18n.t("homeScreen.menu")
     const currencies = useGetCurrenciesQuery()
 

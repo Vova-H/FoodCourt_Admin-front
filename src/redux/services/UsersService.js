@@ -34,14 +34,14 @@ export const usersAPI = createApi({
 
 
         addRoleWorker: builder.mutation({
-            query: (queries) => {
+            query: (data) => {
                 return {
-                    url: `/add_role`,
+                    url: `/add_role?lang=${data.lang}`,
                     method: "POST",
                     headers: {
                         'Content-type': 'application/json; charset=UTF-8'
                     },
-                    body: {userId: queries.userId, role: "WORKER"}
+                    body: {userId: data.userId, role: "WORKER"}
                 };
             },
             invalidatesTags: ['Users']
@@ -49,14 +49,14 @@ export const usersAPI = createApi({
 
 
         removeRoleWorker: builder.mutation({
-            query: (queries) => {
+            query: (data) => {
                 return {
-                    url: `/delete_role`,
+                    url: `/delete_role?lang=${data.lang}`,
                     method: "POST",
                     headers: {
                         'Content-type': 'application/json; charset=UTF-8'
                     },
-                    body: {userId: queries.userId, role: "WORKER"}
+                    body: {userId: data.userId, role: "WORKER"}
                 };
             },
             invalidatesTags: ['Users']
@@ -64,9 +64,9 @@ export const usersAPI = createApi({
 
 
         getUserById: builder.query({
-            query: (id) => {
+            query: (data) => {
                 return {
-                    url: `/${id}`,
+                    url: `/${data.id}?lang=${data.lang}`,
                     method: "GET",
                     headers: {
                         'Content-type': 'application/json; charset=UTF-8'

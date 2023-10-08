@@ -2,13 +2,14 @@ import React, {useEffect, useState} from 'react';
 import {Image, StyleSheet, Switch, Text, View} from "react-native";
 import theme from "../../../theme";
 import {useAddRoleWorkerMutation, useRemoveRoleWorkerMutation} from "../../redux/services/UsersService";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {changeRoleForUser} from "../../redux/features/UsersSlice";
 import {i18n} from "../../redux/features/LangSlice";
 import Roles from "../../helpers/rolesTranslationHelper";
 
 const UserDetailsScreen = (props) => {
     const dispatch = useDispatch()
+    const lang = useSelector(state => state.langReducer.lang)
     const user = props.route.params.user;
     const [isWorker, setIsWorker] = useState(user.roles.some(role => role.role === 'WORKER'));
     const [roles, setRoles] = useState(user.roles)
@@ -20,12 +21,12 @@ const UserDetailsScreen = (props) => {
     const locNo = i18n.t("global.no")
     const locIsWorker = i18n.t("userDetailsScreen.isWorker")
     const addRoleWorkerHandler = async () => {
-        const result = await addRoleWorker({userId: user.id})
+        const result = await addRoleWorker({userId: user.id, lang: lang})
         setRoles(result.data)
     }
 
     const removeRoleWorkerHandler = async () => {
-        const result = await removeRoleWorker({userId: user.id})
+        const result = await removeRoleWorker({userId: user.id, lang: lang})
         setRoles(result.data)
     }
 

@@ -12,10 +12,10 @@ import {i18n} from "../../redux/features/LangSlice";
 
 const MainWorkerScreen = () => {
     const dispatch = useDispatch();
-    const user = useSelector((state) => state.authReducer.userFromJWT);
-    const {data, isLoading} = useGetUserByIdQuery(user.id);
-    const [activeOrders, {isLoading: isLoadingOrders}] = useGetAllActiveOrdersMutation();
     const lang = useSelector((state) => state.langReducer.lang);
+    const user = useSelector((state) => state.authReducer.userFromJWT);
+    const {data, isLoading} = useGetUserByIdQuery({id: user.id, lang: lang});
+    const [activeOrders, {isLoading: isLoadingOrders}] = useGetAllActiveOrdersMutation();
     const locNoOrders = i18n.t("mainWorkerScreen.noOrders")
     const [orders, setOrders] = useState([]);
     const fetchAndSetOrders = useCallback(async () => {
@@ -98,8 +98,8 @@ const styles = StyleSheet.create({
     },
     noOrdersTittle: {
         fontSize: 23,
-        fontFamily:theme.fonts.playfairDisplayMedium,
-        textAlign:"center"
+        fontFamily: theme.fonts.playfairDisplayMedium,
+        textAlign: "center"
     }
 });
 

@@ -17,9 +17,9 @@ const MyProfileAdminScreen = () => {
     const locLogout = i18n.t("myProfileScreen.logout")
     const locUsersList = i18n.t("myProfileScreen.usersList")
     const logOutHandler = () => {
+        navigation.pop()
         dispatch(logoutUser())
         dispatch(removeUser())
-        navigation.pop()
     }
 
     return (
