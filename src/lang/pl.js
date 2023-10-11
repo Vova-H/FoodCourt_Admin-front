@@ -109,7 +109,8 @@ export const localizationPl = {
             }
         },
         loginScreen: {
-            loginError: "Błąd logowania"
+            loginError: "Błąd logowania",
+            policyError: "Nie masz wystarczających uprawnień"
         },
         registerScreen: {
             registerError: "Błąd rejestracji"

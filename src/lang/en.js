@@ -107,7 +107,8 @@ export const localizationEn = {
             }
         },
         loginScreen: {
-            loginError: "Login Error"
+            loginError: "Login Error",
+            policyError: "You don't have enough authority"
         },
         registerScreen: {
             registerError: "Registration Error"

@@ -107,7 +107,8 @@ export const localizationUa = {
             }
         },
         loginScreen: {
-            loginError: "Помилка входу"
+            loginError: "Помилка входу",
+            policyError: "У вас недостатньо прав"
         },
         registerScreen: {
             registerError: "Помилка реєстрації"

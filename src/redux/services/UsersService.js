@@ -17,8 +17,6 @@ export const usersAPI = createApi({
     }),
     tagTypes: ['Users'],
     endpoints: (builder) => ({
-
-
         getAllUsers: builder.mutation({
             query: (queries) => {
                 return {

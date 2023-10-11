@@ -23,6 +23,7 @@ const LoginForm = () => {
     const navigation = useNavigation()
     const [isLoading, setIsLoading] = useState(false);
     const locLoginError = i18n.t("modals.loginScreen.loginError")
+    const locPolicyError = i18n.t("modals.loginScreen.policyError")
 
     const loginHandler = async (values, resetForm) => {
         values.lang = lang
@@ -46,7 +47,7 @@ const LoginForm = () => {
                 const userFromJWT = ParseJWTHelper(response.data.token)
                 const hasPermissions = hasPermissionsHelper(userFromJWT.roles)
                 if (!hasPermissions[0]) {
-                    Alert.alert("Enter error", "You don't have enough authority")
+                    Alert.alert(locLoginError, locPolicyError)
                     resetForm();
                 } else {
                     const token = await response.data.token
